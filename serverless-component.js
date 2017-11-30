@@ -73,9 +73,12 @@ export default class ServerlessComponent extends HTMLElement {
         // this.isDeployed = false
 
         if (location.hash === "#deploying") {
-          deploying.call(this, opts)
+          deploying.call(this)
         } else {
-          deployable.call(this, opts)
+          deployable.call(this, {
+            git: opts.git,
+            endpoint: this.getAttribute('endpoint'),
+          })
         }
       })
   }
@@ -92,10 +95,10 @@ function deployable(opts) {
   const shadowRoot = this.shadowRoot || this.attachShadow({ mode: 'open' })
   shadowRoot.appendChild(node)
   const a = shadowRoot.querySelector('a')
-  a.href = "http://localhost:3000/deployment?repository=" + opts.git
+  a.href = "https://deploy.components.cloud/?repository=" + encodeURIComponent(opts.git) + "&endpoint=" + encodeURIComponent(opts.endpoint)
 }
 
-function deploying(opts) {
+function deploying() {
   const node = document.importNode(deployingTemplate.content, true)
   const shadowRoot = this.shadowRoot || this.attachShadow({ mode: 'open' })
   shadowRoot.appendChild(node)
