@@ -1,0 +1,8 @@
+{
+  "name": "serverless-component",
+  "version": "0.1.0",
+  "description": "",
+  "main": "serverless-component.js",
+  "author": "Markus Ast <m@rkusa.st>",
+  "license": "MIT"
+}
